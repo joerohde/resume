@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="robots" content="all" />
+		<meta name="generator" content="RapidWeaver" />
+		
+		<title>TestHarness.cpp</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/interslice/styles.css"  />
+		<link rel="stylesheet" type="text/css" media="print" href="../rw_common/themes/interslice/print.css"  />
+		<link rel="stylesheet" type="text/css" media="handheld" href="../rw_common/themes/interslice/handheld.css"  />
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/interslice/css/width/width_variable.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/interslice/css/sidebar/sidebar_left.css" />
+		
+		
+		
+		
+		<script type="text/javascript" src="../rw_common/themes/interslice/javascript.js"></script>
+		
+		
+		
+	</head>
+<body>
+<div id="container"><!-- Start container -->
+	
+	<div id="pageHeader"><!-- Start page header -->
+		
+		<h1>Joe Rohde's Info</h1>
+		<h2>Will Code For Food</h2>
+	</div><!-- End page header -->
+	
+	<div id="sidebarContainer"><!-- Start Sidebar wrapper -->
+		<div id="navcontainer"><!-- Start Navigation -->
+			<ul><li><a href="../index.html" rel="self">Code Samples</a></li><li><a href="../Pages/CArenaAllocator.html" rel="self">CArenaAllocator.h</a></li><li><a href="../Pages/CArenaAllocator_cpp.html" rel="self">CArenaAllocator.cpp</a></li><li><a href="../Pages/Tree.html" rel="self">Tree.h</a></li><li><a href="../Pages/TreeMain.html" rel="self">TreeMain.cpp</a></li><li><a href="../Pages/TreeOutput.html" rel="self">Tree Output</a></li><li><a href="../Pages/DirectedGraph.html" rel="self">DirectedGraph.h</a></li><li><a href="../Pages/Instruction.html" rel="self">Instruction.h</a></li><li><a href="../Pages/Instruction_cpp.html" rel="self">Instruction.cpp</a></li><li><a href="TestHarness.html" rel="self" id="current">TestHarness.cpp</a></li></ul>
+		</div><!-- End navigation --> 
+		<div id="sidebar"><!-- Start sidebar content -->
+			<h1 class="sideHeader"></h1><!-- Sidebar header -->
+			 <br /><!-- sidebar content you enter in the page inspector -->
+			 <!-- sidebar content such as the blog archive links -->
+		</div><!-- End sidebar content -->
+	</div><!-- End sidebar wrapper -->
+	
+	<div id="contentContainer"><!-- Start main content wrapper -->
+		<div id="content"><!-- Start content -->
+			<div style="font-family: Bitstream Vera Sans Mono; font-size: 10pt; color: black; background: white;">
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;1</span>&nbsp;<span style="color: purple;">// BranchOpt.cpp : Defines the entry point for the console application.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;2</span>&nbsp;<span style="color: purple;">//</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;3</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;4</span>&nbsp;<span style="color: blue;">#include</span> <span style="color: #a31515;">&quot;stdafx.h&quot;</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;5</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;6</span>&nbsp;<span style="color: blue;">#include</span> <span style="color: #a31515;">&quot;Instruction.h&quot;</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;7</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;8</span>&nbsp;<span style="color: purple;">// Simple test case</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;9</span>&nbsp;<span style="color: blue;">void</span> BuildSimpleInstructionStream(vector&lt;Instruction&gt; *code)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;10</span>&nbsp;{</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;11</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;reserve(20);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;12</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;13</span>&nbsp;&nbsp;&nbsp;&nbsp; Instruction op;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;14</span>&nbsp;&nbsp;&nbsp;&nbsp; Label *pLabel = <span style="color: blue;">new</span> Label;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;15</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;16</span>&nbsp;&nbsp;&nbsp;&nbsp; pLabel-&gt;nNumRefs = 1;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;17</span>&nbsp;&nbsp;&nbsp;&nbsp; pLabel-&gt;name = <span style="color: #a31515;">&quot;MyLabel&quot;</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;18</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;19</span>&nbsp;&nbsp;&nbsp;&nbsp; op.opcode = OP_BR_UNRESOLVED;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;20</span>&nbsp;&nbsp;&nbsp;&nbsp; op.pParam = pLabel;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;21</span>&nbsp;&nbsp;&nbsp;&nbsp; op.size = BR_UNRESOLVED_SIZE;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;22</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;push_back(op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;23</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;24</span>&nbsp;&nbsp;&nbsp;&nbsp; op.opcode = OP_MISC;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;25</span>&nbsp;&nbsp;&nbsp;&nbsp; op.size = 3;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;26</span>&nbsp;&nbsp;&nbsp;&nbsp; op.nParam = 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;27</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;push_back(op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;28</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;29</span>&nbsp;&nbsp;&nbsp;&nbsp; op.size = 1;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;30</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;push_back(op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;31</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;32</span>&nbsp;&nbsp;&nbsp;&nbsp; op.size = 2;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;33</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;push_back(op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;34</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;35</span>&nbsp;&nbsp;&nbsp;&nbsp; op.opcode = OP_LABEL;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;36</span>&nbsp;&nbsp;&nbsp;&nbsp; op.pParam = pLabel;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;37</span>&nbsp;&nbsp;&nbsp;&nbsp; op.size = 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;38</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;push_back(op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;39</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;40</span>&nbsp;&nbsp;&nbsp;&nbsp; op.opcode = OP_MISC;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;41</span>&nbsp;&nbsp;&nbsp;&nbsp; op.nParam = 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;42</span>&nbsp;&nbsp;&nbsp;&nbsp; op.size = 2;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;43</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;push_back(op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;44</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;45</span>&nbsp;&nbsp;&nbsp;&nbsp; op.opcode = OP_BR_UNRESOLVED;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;46</span>&nbsp;&nbsp;&nbsp;&nbsp; op.pParam = pLabel;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;47</span>&nbsp;&nbsp;&nbsp;&nbsp; pLabel-&gt;nNumRefs++;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;48</span>&nbsp;&nbsp;&nbsp;&nbsp; op.size = BR_UNRESOLVED_SIZE;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;49</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;push_back(op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;50</span>&nbsp;}</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;51</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;52</span>&nbsp;<span style="color: purple;">// This is for testing and is not effecient.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;53</span>&nbsp;<span style="color: purple;">// It's pretty terrible in fact. :)&nbsp; But it's</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;54</span>&nbsp;<span style="color: purple;">// a really good test</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;55</span>&nbsp;<span style="color: blue;">void</span> BuildRandomInstructionStream(vector&lt;Instruction&gt; *code)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;56</span>&nbsp;{</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;57</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">const</span> size_t MAX_CODE_SIZE = 512;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;58</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">const</span> size_t MIN_CODE_SIZE = 64;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;59</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;60</span>&nbsp;&nbsp;&nbsp;&nbsp; vector&lt;Label*&gt; labels;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;61</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;62</span>&nbsp;&nbsp;&nbsp;&nbsp; size_t nCodeSize = (rand() % (MAX_CODE_SIZE-MIN_CODE_SIZE)) + MIN_CODE_SIZE;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;63</span>&nbsp;&nbsp;&nbsp;&nbsp; code-&gt;reserve(nCodeSize);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;64</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;65</span>&nbsp;&nbsp;&nbsp;&nbsp; Instruction op;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;66</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;67</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> (size_t i = 0; i &lt; nCodeSize; i++)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;68</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;69</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; op.pParam = NULL;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;70</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">switch</span> (rand()%8)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;71</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;72</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">case</span> 0:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;73</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; op.opcode = OP_BR_UNRESOLVED;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;74</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; op.size = BR_UNRESOLVED_SIZE;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;75</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Label *pLabel;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;76</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// make a label, or pick an existing one 15% of the time.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;77</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> ((rand() % 15) || (labels.size() == 0))</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;78</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Make one</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;79</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pLabel = <span style="color: blue;">new</span> Label;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;80</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pLabel-&gt;nNumRefs = 1;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;81</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;82</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ostringstream str;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;83</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; str &lt;&lt; <span style="color: #a31515;">&quot;Label_&quot;</span> &lt;&lt; labels.size() + 1;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;84</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pLabel-&gt;name = str.str();</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;85</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; labels.push_back(pLabel);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;86</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;87</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">else</span> <span style="color: purple;">// pick one that exists</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;88</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;89</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pLabel = labels.at(rand()%labels.size());</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;90</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pLabel-&gt;nNumRefs++;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;91</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;92</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; op.pParam = pLabel;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;93</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">break</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;94</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">default</span>:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;95</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; op.opcode = OP_MISC;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;96</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; op.size = rand() % 3 + 1;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;97</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">break</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;98</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;99</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; code-&gt;push_back(op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;100</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;101</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;102</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// stick in those labels</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;103</span>&nbsp;&nbsp;&nbsp;&nbsp; op.size = 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;104</span>&nbsp;&nbsp;&nbsp;&nbsp; op.opcode = OP_LABEL;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;105</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;106</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> <span style="color: blue;">each</span>(Label *pLabel <span style="color: blue;">in</span> labels)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;107</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;108</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; op.pParam = pLabel;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;109</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; size_t index = rand() % code-&gt;size();</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;110</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; code-&gt;insert(code-&gt;begin() + index, op);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;111</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;112</span>&nbsp;}</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;113</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;114</span>&nbsp;<span style="color: purple;">// Sloppy but functional</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;115</span>&nbsp;<span style="color: blue;">void</span> DumpInstructionStream(vector&lt;Instruction&gt; *code)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;116</span>&nbsp;{</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;117</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">int</span> count = 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;118</span>&nbsp;&nbsp;&nbsp;&nbsp; size_t nByteOffset = 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;119</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> <span style="color: blue;">each</span> (Instruction op <span style="color: blue;">in</span> *code)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;120</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;121</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">char</span> *strOp = NULL;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;122</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">const</span> <span style="color: blue;">char</span> *pOptional = NULL;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;123</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">char</span> buffer[255];</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;124</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;125</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">switch</span> (op.opcode)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;126</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;127</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">case</span> OP_MISC:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;128</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; strOp = <span style="color: #a31515;">&quot;misc&quot;</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;129</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">break</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;130</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">case</span> OP_BR_L:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;131</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; strOp = <span style="color: #a31515;">&quot;br.l &quot;</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;132</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; pOptional = buffer;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;133</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; _itoa(op.nParam, buffer, 10);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;134</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">break</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;135</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">case</span> OP_BR_S:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;136</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; strOp = <span style="color: #a31515;">&quot;br.s &quot;</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;137</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; pOptional = buffer;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;138</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; _itoa(op.nParam, buffer, 10);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;139</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">break</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;140</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">case</span> OP_BR_UNRESOLVED:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;141</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; strOp = <span style="color: #a31515;">&quot;br.??? &quot;</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;142</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; pOptional = ((Label*)op.pParam)-&gt;name.c_str();</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;143</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">break</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;144</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">case</span> OP_LABEL:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;145</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; strOp = <span style="color: #a31515;">&quot;&quot;</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;146</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pOptional = buffer;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;147</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; sprintf(buffer, <span style="color: #a31515;">&quot;%s:&quot;</span>, ((Label*)op.pParam)-&gt;name.c_str());</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;148</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;149</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; nByteOffset += op.size;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;150</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; printf(<span style="color: #a31515;">&quot;%3d: [%2d, %3d] %s&quot;</span>, count++, op.size, nByteOffset, strOp);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;151</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (pOptional)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;152</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;153</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; printf(<span style="color: #a31515;">&quot;%s&quot;</span>, pOptional);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;154</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;155</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;156</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; puts(<span style="color: #a31515;">&quot;&quot;</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;157</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;158</span>&nbsp;}</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;159</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;160</span>&nbsp;<span style="color: purple;">// These are helpers for validating the branch opts got done</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;161</span>&nbsp;<span style="color: purple;">// correctly.&nbsp; They aren't part of the actual solution algorithm.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;162</span>&nbsp;<span style="color: blue;">typedef</span> unordered_map&lt;size_t, Label*&gt; MapTargets;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;163</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;164</span>&nbsp;<span style="color: blue;">void</span> BuildMapTargets(vector&lt;Instruction&gt; *pCode, MapTargets *pMapTargets)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;165</span>&nbsp;{</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;166</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">const</span> vector&lt;Instruction&gt;::size_type nSize = pCode-&gt;size();</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;167</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;168</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> (vector&lt;Instruction&gt;::size_type idx = 0; idx &lt; nSize; idx++)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;169</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;170</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Instruction &amp;op = pCode-&gt;at(idx);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;171</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ASSERT(op.opcode != OP_BR_S);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;172</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ASSERT(op.opcode != OP_BR_L);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;173</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;174</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (OP_BR_UNRESOLVED == op.opcode)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;175</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;176</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Label *pLabel = (Label*)op.pParam;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;177</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pMapTargets-&gt;insert(MapTargets::value_type(idx, pLabel));</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;178</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;179</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;180</span>&nbsp;}</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;181</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;182</span>&nbsp;<span style="color: purple;">// For now, fail by assert. If this was a real unit test the asserts</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;183</span>&nbsp;<span style="color: purple;">// would be throws or 'fail' or whatever is appropriate.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;184</span>&nbsp;<span style="color: blue;">bool</span> VerifyMapTargets(vector&lt;Instruction&gt; *pCode, <span style="color: blue;">const</span> MapTargets *pMapTargets)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;185</span>&nbsp;{</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;186</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// don't trust the map targets 'as is'.&nbsp; Always a chance the</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;187</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// encoder added/removed/broke instructions.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;188</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">bool</span> bLooksGood = <span style="color: blue;">true</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;189</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">const</span> vector&lt;Instruction&gt;::size_type nSize = pCode-&gt;size();</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;190</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;191</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> (vector&lt;Instruction&gt;::size_type idx = 0; idx &lt; nSize; idx++)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;192</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;193</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Instruction &amp;op = pCode-&gt;at(idx);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;194</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ASSERT(op.opcode != OP_BR_UNRESOLVED);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;195</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;196</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> ((OP_BR_S == op.opcode) || (OP_BR_L == op.opcode))</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;197</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;198</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (OP_BR_S == op.opcode)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;199</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;200</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> ((op.nParam &lt; -128) || (op.nParam &gt; 127))</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;201</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// too big.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;202</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bLooksGood = <span style="color: blue;">false</span>; ASSERT(<span style="color: blue;">false</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;203</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;204</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;205</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">else</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;206</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;207</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (OP_BR_L != op.opcode)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;208</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// something didn't resolve, or worse, not a branch instruction.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;209</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bLooksGood = <span style="color: blue;">false</span>; ASSERT(<span style="color: blue;">false</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;210</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;211</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;212</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> ((op.nParam &gt;= -128) &amp;&amp; (op.nParam &lt;= 127))</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;213</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// too small</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;214</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bLooksGood = <span style="color: blue;">false</span>; ASSERT(<span style="color: blue;">false</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;215</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;216</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;217</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;218</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Label *pLabel = pMapTargets-&gt;find(idx)-&gt;second;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;219</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;220</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// let the bookeeping begin</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;221</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">int</span> nDirection = op.nParam &lt; 0 ? -1 : 1;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;222</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">int</span> nDistance = abs(op.nParam);&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;223</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">int</span> nDistanceActual = 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;224</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; size_t idxTarget = idx;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;225</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;226</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (nDirection &gt; 0)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;227</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; idxTarget++; <span style="color: purple;">// forward branches start after the branch instruction.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;228</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;229</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// Brute force - find the label this was meant to jump to</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;230</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// and determine what the correct jump distance is.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;231</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> (size_t idxSeek = 0; idxSeek &lt; nSize; idxSeek++)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;232</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;233</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Instruction &amp;lop = pCode-&gt;at(idxSeek);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;234</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (lop.opcode == OP_LABEL)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;235</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;236</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> ((Label*)lop.pParam == pLabel)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;237</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;238</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; size_t from = min(idx+1, idxSeek);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;239</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; size_t to = idx &lt; idxSeek ? idxSeek : idx+1;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;240</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">while</span> (from &lt; to)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;241</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;242</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; nDistanceActual += pCode-&gt;at(from).size;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;243</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; from++;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;244</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;245</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;246</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;247</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;248</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;249</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;250</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (nDistance != nDistanceActual)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;251</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Something is wrong.&nbsp; None of the rest of this routine</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;252</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// is really necessary, but sometimes it's handy to walk</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;253</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// through what it thought it was going to do.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;254</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bLooksGood = <span style="color: blue;">false</span>; ASSERT(<span style="color: blue;">false</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;255</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;256</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;257</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// Given the distance in the instruction, seek that far in the bytecode.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;258</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> (; nDistance &gt; 0; idxTarget += nDirection)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;259</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;260</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; nDistance -= pCode-&gt;at(idxTarget).size;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;261</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;262</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;263</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (nDistance != 0)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;264</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Erm, we jumped 'inside' an instruction. Ouch.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;265</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bLooksGood = <span style="color: blue;">false</span>; ASSERT(<span style="color: blue;">false</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;266</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;267</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (idxTarget &gt;= pCode-&gt;size())</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;268</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Are we out of bounds?</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;269</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// since it's unsigned this will also catch underflow unless it's massive.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;270</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bLooksGood = <span style="color: blue;">false</span>; ASSERT(<span style="color: blue;">false</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;271</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;272</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;273</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// There may be multiple 0 length instructions, like overlapping</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;274</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// labels - make sure we check for matches against all of them.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;275</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">bool</span> bFoundMatchingLabel = <span style="color: blue;">false</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;276</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> (; pCode-&gt;at(idxTarget).size == 0; idxTarget += nDirection)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;277</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;278</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Instruction &amp;lop = pCode-&gt;at(idxTarget);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;279</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> ((lop.opcode == OP_LABEL) &amp;&amp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;280</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ((Label*)lop.pParam == pLabel))</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;281</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;282</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bFoundMatchingLabel = <span style="color: blue;">true</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;283</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">break</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;284</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;285</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;286</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (!bFoundMatchingLabel)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;287</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// The instruction's offset did not hit the target label. :(</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;288</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bLooksGood = <span style="color: blue;">false</span>; ASSERT(<span style="color: blue;">false</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;289</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;290</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;291</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;292</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;293</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> bLooksGood;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;294</span>&nbsp;}</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;295</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;296</span>&nbsp;<span style="color: blue;">int</span> _tmain(<span style="color: purple;">/*int argc, _TCHAR* argv[]*/</span>)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;297</span>&nbsp;{</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;298</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">unsigned</span> <span style="color: blue;">int</span> seed = (<span style="color: blue;">unsigned</span> <span style="color: blue;">int</span>)time(NULL); <span style="color: purple;">//1235360651; //</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;299</span>&nbsp;&nbsp;&nbsp;&nbsp; printf(<span style="color: #a31515;">&quot;Seed: %u\n&quot;</span>, seed);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;300</span>&nbsp;&nbsp;&nbsp;&nbsp; srand(seed);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;301</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;302</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">bool</span> bSucceeded = <span style="color: blue;">true</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;303</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;304</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> (<span style="color: blue;">int</span> i = 0; i &lt;= 5000; i++)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;305</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;306</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; printf(<span style="color: #a31515;">&quot;\nIteration: %d\n&quot;</span>, i);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;307</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; vector&lt;Instruction&gt; code;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;308</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;309</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">//BuildSimpleInstructionStream(&amp;code);</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;310</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;311</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; BuildRandomInstructionStream(&amp;code);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;312</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; printf(<span style="color: #a31515;">&quot;Original Stream Size: %u&quot;</span>, code.size());</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;313</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">//DumpInstructionStream(&amp;code);</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;314</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;315</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; MapTargets mapTargets;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;316</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; BuildMapTargets(&amp;code, &amp;mapTargets);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;317</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;318</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ResolveBranches(&amp;code);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;319</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; printf(<span style="color: #a31515;">&quot;\nResolved Stream: &quot;</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;320</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">//DumpInstructionStream(&amp;code);</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;321</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;322</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; bSucceeded = VerifyMapTargets(&amp;code, &amp;mapTargets);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;323</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; puts(bSucceeded ? <span style="color: #a31515;">&quot;Succeeded&quot;</span> : <span style="color: #a31515;">&quot;FAILED!!!&quot;</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;324</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;325</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (!bSucceeded)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;326</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;327</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> 1;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;328</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;329</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;330</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;331</span>&nbsp;}</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;332</span>&nbsp;</pre>
+</div>
+
+		</div><!-- End content -->
+	</div><!-- End main content wrapper -->
+	
+	<div class="clearer"></div>
+	
+	<div id="footer"><!-- Start Footer -->
+		<div id="breadcrumbcontainer"><!-- Start the breadcrumb wrapper -->
+			
+		</div><!-- End breadcrumb -->
+		<p>&copy; 2009 Joe Rohde <a href="#" id="rw_email_contact">Contact Me</a><script type="text/javascript">var _rwObsfuscatedHref0 = "mai";var _rwObsfuscatedHref1 = "lto";var _rwObsfuscatedHref2 = ":Jo";var _rwObsfuscatedHref3 = "e.R";var _rwObsfuscatedHref4 = "ohd";var _rwObsfuscatedHref5 = "e@G";var _rwObsfuscatedHref6 = "Mai";var _rwObsfuscatedHref7 = "l.c";var _rwObsfuscatedHref8 = "om";var _rwObsfuscatedHref = _rwObsfuscatedHref0+_rwObsfuscatedHref1+_rwObsfuscatedHref2+_rwObsfuscatedHref3+_rwObsfuscatedHref4+_rwObsfuscatedHref5+_rwObsfuscatedHref6+_rwObsfuscatedHref7+_rwObsfuscatedHref8; document.getElementById('rw_email_contact').href = _rwObsfuscatedHref;</script></p>
+	</div><!-- End Footer -->
+
+</div><!-- End container -->
+</body>
+</html>

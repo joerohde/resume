@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="robots" content="all" />
+		<meta name="generator" content="RapidWeaver" />
+		
+		<title>DirectedGraph.h</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/interslice/styles.css"  />
+		<link rel="stylesheet" type="text/css" media="print" href="../rw_common/themes/interslice/print.css"  />
+		<link rel="stylesheet" type="text/css" media="handheld" href="../rw_common/themes/interslice/handheld.css"  />
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/interslice/css/width/width_variable.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="../rw_common/themes/interslice/css/sidebar/sidebar_left.css" />
+		
+		
+		
+		
+		<script type="text/javascript" src="../rw_common/themes/interslice/javascript.js"></script>
+		
+		
+		
+	</head>
+<body>
+<div id="container"><!-- Start container -->
+	
+	<div id="pageHeader"><!-- Start page header -->
+		
+		<h1>Joe Rohde's Info</h1>
+		<h2>Will Code For Food</h2>
+	</div><!-- End page header -->
+	
+	<div id="sidebarContainer"><!-- Start Sidebar wrapper -->
+		<div id="navcontainer"><!-- Start Navigation -->
+			<ul><li><a href="../index.html" rel="self">Code Samples</a></li><li><a href="../Pages/CArenaAllocator.html" rel="self">CArenaAllocator.h</a></li><li><a href="../Pages/CArenaAllocator_cpp.html" rel="self">CArenaAllocator.cpp</a></li><li><a href="../Pages/Tree.html" rel="self">Tree.h</a></li><li><a href="../Pages/TreeMain.html" rel="self">TreeMain.cpp</a></li><li><a href="../Pages/TreeOutput.html" rel="self">Tree Output</a></li><li><a href="DirectedGraph.html" rel="self" id="current">DirectedGraph.h</a></li><li><a href="../Pages/Instruction.html" rel="self">Instruction.h</a></li><li><a href="../Pages/Instruction_cpp.html" rel="self">Instruction.cpp</a></li><li><a href="../Pages/TestHarness.html" rel="self">TestHarness.cpp</a></li></ul>
+		</div><!-- End navigation --> 
+		<div id="sidebar"><!-- Start sidebar content -->
+			<h1 class="sideHeader"></h1><!-- Sidebar header -->
+			 <br /><!-- sidebar content you enter in the page inspector -->
+			 <!-- sidebar content such as the blog archive links -->
+		</div><!-- End sidebar content -->
+	</div><!-- End sidebar wrapper -->
+	
+	<div id="contentContainer"><!-- Start main content wrapper -->
+		<div id="content"><!-- Start content -->
+			<div style="font-family: Bitstream Vera Sans Mono; font-size: 10pt; color: black; background: white;">
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;1</span>&nbsp;<span style="color: blue;">#pragma</span> <span style="color: blue;">once</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;2</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;3</span>&nbsp;<span style="color: purple;">// Would really want to use a boost graph, or a sedgewick graph.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;4</span>&nbsp;<span style="color: purple;">// but let's throw one together to see how it works out.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;5</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;6</span>&nbsp;<span style="color: blue;">template</span>&lt;<span style="color: blue;">typename</span> TData,&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Node content</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;7</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">typename</span> _Hasher = hash&lt;TData&gt;,&nbsp;&nbsp;&nbsp; <span style="color: purple;">// hash function</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;8</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">typename</span> _Keyeq = equal_to&lt;TData&gt;&gt;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// equality tester</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;&nbsp;9</span>&nbsp;<span style="color: blue;">class</span> DirectedGraph</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;10</span>&nbsp;{</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;11</span>&nbsp;<span style="color: blue;">public</span>:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;12</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;13</span>&nbsp;&nbsp;&nbsp;&nbsp; DirectedGraph() <span style="color: purple;">// default the color/visit to the node default + 1</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;14</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; : m_nCurrColor(1), m_nCurrVisit(1) </pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;15</span>&nbsp;&nbsp;&nbsp;&nbsp; { }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;16</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;17</span>&nbsp;&nbsp;&nbsp;&nbsp; ~DirectedGraph()</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;18</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;19</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> <span style="color: blue;">each</span> (pair&lt;TData, PNODE&gt; pair <span style="color: blue;">in</span> m_mapDataToNodes)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;20</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// we don't need smart pointers (for something this straight forward)</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;21</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">delete</span> pair.second; </pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;22</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;23</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;24</span>&nbsp;<span style="color: purple;">// Public types</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;25</span>&nbsp;<span style="color: blue;">public</span>:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;26</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// use vector of vectors because edges are sparse</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;27</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// for the use of this graph in typical scenarios.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;28</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">typedef</span> <span style="color: blue;">struct</span> Node</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;29</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;30</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">unsigned</span> <span style="color: blue;">short</span>&nbsp;&nbsp;&nbsp; nColor;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Color used for walking</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;31</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">unsigned</span> <span style="color: blue;">short</span>&nbsp;&nbsp;&nbsp; nVisit; <span style="color: purple;">// visit is for the user, typically a 'processed' marker.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;32</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; TData&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; data;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// user data</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;33</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; unordered_set&lt;Node*&gt;&nbsp;&nbsp;&nbsp; setPointsTo;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Who does this node point to?</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;34</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; unordered_set&lt;Node*&gt;&nbsp;&nbsp;&nbsp; setPointsFrom;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Who points to this node? (for backtracking like a parent pointer in a tree)</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;35</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;36</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Node(<span style="color: blue;">const</span> TData &amp;srcData) : nColor(0), nVisit(0), data(srcData) { }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;37</span>&nbsp;&nbsp;&nbsp;&nbsp; } *PNODE;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;38</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;39</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// nodes. mapped from user data to nodes for easy user lookup</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;40</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">typedef</span> unordered_map&lt;TData, PNODE, _Hasher, _Keyeq&gt; NodeMap;&nbsp;&nbsp;&nbsp; </pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;41</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">typedef</span> <span style="color: blue;">typename</span> NodeMap::iterator iterator;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;42</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;43</span>&nbsp;<span style="color: purple;">// Public Operations</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;44</span>&nbsp;<span style="color: blue;">public</span>:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Add a node to the graph</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;46</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">void</span> AddNode(<span style="color: blue;">const</span> TData &amp;data)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;47</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;48</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (m_mapDataToNodes.count(data))</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;49</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;50</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// should probably derive an exception class.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;51</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">throw</span> runtime_error(<span style="color: #a31515;">&quot;Trying to double add a node&quot;</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;52</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;53</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;54</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; PNODE pNode = <span style="color: blue;">new</span> Node(data);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;55</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; m_mapDataToNodes[data] = pNode;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;56</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;57</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;58</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Create a directed edge from a source -&gt; dest</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;59</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">void</span> Connect(<span style="color: blue;">const</span> TData &amp;source, <span style="color: blue;">const</span> TData &amp;dest)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;60</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;61</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; PNODE pSrcNode;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;62</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; PNODE pDestNode;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;63</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;64</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (source == dest)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;65</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; <span style="color: purple;">// this graph does not allow edges to self</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;66</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;67</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;68</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;69</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// find source node</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;70</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; NodeMap::iterator it = m_mapDataToNodes.find(source);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;71</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (it == m_mapDataToNodes.end())</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;72</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;73</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">throw</span> runtime_error(<span style="color: #a31515;">&quot;Attempt to connect to a missing source node&quot;</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;74</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;75</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pSrcNode = it-&gt;second;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;76</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;77</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// find destination</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;78</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; it = m_mapDataToNodes.find(dest);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;79</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (it == m_mapDataToNodes.end())</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;80</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;81</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">throw</span> runtime_error(<span style="color: #a31515;">&quot;Attempt to connect to a missing destination node&quot;</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;82</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;83</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pDestNode = it-&gt;second;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;84</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;85</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// set the link and the link back</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;86</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pSrcNode-&gt;setPointsTo.insert(pDestNode);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;87</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pDestNode-&gt;setPointsFrom.insert(pSrcNode);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;88</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;89</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;90</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// This node stays in the graph, and still holds onto everything it</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;91</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// connects to, but all edges connected to the source will be removed.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;92</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">bool</span> DisconnectNodesTo(<span style="color: blue;">const</span> TData &amp;source)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;93</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;94</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// Find the node</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;95</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; NodeMap::iterator it = m_mapDataToNodes.find(source);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;96</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (it == m_mapDataToNodes.end())</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;97</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;98</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">throw</span> runtime_error(<span style="color: #a31515;">&quot;Attempt to disconnect a missing node&quot;</span>);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;&nbsp;99</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;100</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;101</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; PNODE pNode = it-&gt;second;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;102</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;103</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// unlink everything that points to it</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;104</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> <span style="color: blue;">each</span> (PNODE pPointsFrom <span style="color: blue;">in</span> pNode-&gt;setPointsFrom)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;105</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;106</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pPointsFrom-&gt;setPointsTo.erase(pNode);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;107</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;108</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pNode-&gt;setPointsFrom.clear();</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;109</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;110</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> <span style="color: blue;">true</span>;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;111</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;112</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;113</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// find any nodes that match the current visited value and wipe them out.</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;114</span>&nbsp;&nbsp;&nbsp;&nbsp; size_t DeleteVisited()</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;115</span>&nbsp;&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;116</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; NodeMap::iterator it = m_mapDataToNodes.begin();</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;117</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; size_t nDeleted = 0;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;118</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">while</span> (it != m_mapDataToNodes.end())</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;119</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;120</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; PNODE pNode = it-&gt;second;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;121</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (GetVisited() ==&nbsp; pNode-&gt;nVisit)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;122</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;123</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// Clean the edges</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;124</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> <span style="color: blue;">each</span> (PNODE pPointsFrom <span style="color: blue;">in</span> pNode-&gt;setPointsFrom)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;125</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;126</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pPointsFrom-&gt;setPointsTo.erase(pNode);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;127</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;128</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;129</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> <span style="color: blue;">each</span> (PNODE pPointsTo <span style="color: blue;">in</span> pNode-&gt;setPointsTo)</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;130</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;131</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; pPointsTo-&gt;setPointsFrom.erase(pNode);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;132</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;133</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;134</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: purple;">// Do the delete</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;135</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">delete</span> it-&gt;second;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;136</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; NodeMap::iterator tmp(it);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;137</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; it++;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;138</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; m_mapDataToNodes.erase(tmp);</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;139</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; nDeleted++;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;140</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;141</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">else</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;142</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;143</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; it++;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;144</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;145</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;146</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> nDeleted;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;147</span>&nbsp;&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;148</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;149</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// number of nodes</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;150</span>&nbsp;&nbsp;&nbsp;&nbsp; size_t Size() <span style="color: blue;">const</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;151</span>&nbsp;&nbsp;&nbsp;&nbsp; { <span style="color: blue;">return</span> m_mapDataToNodes.size(); }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;152</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;153</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// current color</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;154</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">unsigned</span> <span style="color: blue;">short</span> GetColor() <span style="color: blue;">const</span> </pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;155</span>&nbsp;&nbsp;&nbsp;&nbsp; { <span style="color: blue;">return</span> m_nCurrColor; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;156</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;157</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// current 'visit' value</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;158</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">unsigned</span> <span style="color: blue;">short</span> GetVisited() <span style="color: blue;">const</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;159</span>&nbsp;&nbsp;&nbsp;&nbsp; { <span style="color: blue;">return</span> m_nCurrVisit; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;160</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;161</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// iterator wrapper</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;162</span>&nbsp;&nbsp;&nbsp;&nbsp; iterator begin() { <span style="color: blue;">return</span> m_mapDataToNodes.begin(); }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;163</span>&nbsp;&nbsp;&nbsp;&nbsp; iterator end() { <span style="color: blue;">return</span> m_mapDataToNodes.end(); }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;164</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;165</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">void</span> NewColor()</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;166</span>&nbsp;&nbsp;&nbsp;&nbsp; { m_nCurrColor++; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;167</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;168</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">void</span> NewVisited()</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;169</span>&nbsp;&nbsp;&nbsp;&nbsp; { m_nCurrVisit++; }</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;170</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;171</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// Private Member Data</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;172</span>&nbsp;<span style="color: blue;">private</span>:</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;173</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;174</span>&nbsp;&nbsp;&nbsp;&nbsp; NodeMap&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; m_mapDataToNodes;&nbsp;&nbsp;&nbsp; <span style="color: purple;">// actual nodes</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;175</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">unsigned</span> <span style="color: blue;">short</span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; m_nCurrColor; <span style="color: purple;">// active color id</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;176</span>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">unsigned</span> <span style="color: blue;">short</span>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; m_nCurrVisit; <span style="color: purple;">// active visit id</span></pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;177</span>&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;178</span>&nbsp;};</pre>
+<pre style="margin: 0px;"><span style="color: #2b91af;">&nbsp;&nbsp;179</span>&nbsp;</pre>
+</div>
+
+		</div><!-- End content -->
+	</div><!-- End main content wrapper -->
+	
+	<div class="clearer"></div>
+	
+	<div id="footer"><!-- Start Footer -->
+		<div id="breadcrumbcontainer"><!-- Start the breadcrumb wrapper -->
+			
+		</div><!-- End breadcrumb -->
+		<p>&copy; 2009 Joe Rohde <a href="#" id="rw_email_contact">Contact Me</a><script type="text/javascript">var _rwObsfuscatedHref0 = "mai";var _rwObsfuscatedHref1 = "lto";var _rwObsfuscatedHref2 = ":Jo";var _rwObsfuscatedHref3 = "e.R";var _rwObsfuscatedHref4 = "ohd";var _rwObsfuscatedHref5 = "e@G";var _rwObsfuscatedHref6 = "Mai";var _rwObsfuscatedHref7 = "l.c";var _rwObsfuscatedHref8 = "om";var _rwObsfuscatedHref = _rwObsfuscatedHref0+_rwObsfuscatedHref1+_rwObsfuscatedHref2+_rwObsfuscatedHref3+_rwObsfuscatedHref4+_rwObsfuscatedHref5+_rwObsfuscatedHref6+_rwObsfuscatedHref7+_rwObsfuscatedHref8; document.getElementById('rw_email_contact').href = _rwObsfuscatedHref;</script></p>
+	</div><!-- End Footer -->
+
+</div><!-- End container -->
+</body>
+</html>
